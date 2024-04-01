@@ -20,8 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
-    Route::apiResource('survey', SurveyController::class)->except(['show']);
+    // Survey resource with slug
+    Route::get('survey/', [SurveyController::class, 'index'])->name('survey.index');
+    Route::post('survey/', [SurveyController::class, 'store'])->name('survey.store');
     Route::get('survey/{survey:slug}', [SurveyController::class, 'show'])->name('survey.show');
+    Route::put('survey/{survey:slug}', [SurveyController::class, 'update'])->name('survey.update');
+    Route::delete('survey/{survey:slug}', [SurveyController::class, 'destroy'])->name('survey.destroy');
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
 });
