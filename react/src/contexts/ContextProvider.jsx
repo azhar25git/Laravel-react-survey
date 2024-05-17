@@ -18,7 +18,7 @@ const tmpSurveys = [];
 export const ContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
   const [userToken, _setUserToken] = useState(
-    localStorage.getItem("TOKEN") || ""
+    localStorage.getItem("import.meta.env.VITE_LOCALSTORAGE_TOKEN") || ""
   );
   const [surveys, setSurveys] = useState(tmpSurveys);
   const [questionTypes] = useState([
@@ -32,9 +32,9 @@ export const ContextProvider = ({ children }) => {
 
   const setUserToken = (token) => {
     if (token) {
-      localStorage.setItem("TOKEN", token);
+      localStorage.setItem("import.meta.env.VITE_LOCALSTORAGE_TOKEN", token);
     } else {
-      localStorage.removeItem("TOKEN");
+      localStorage.removeItem("import.meta.env.VITE_LOCALSTORAGE_TOKEN");
     }
     _setUserToken(token);
   };
