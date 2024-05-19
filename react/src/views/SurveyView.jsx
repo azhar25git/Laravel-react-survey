@@ -12,7 +12,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 export default function SurveyView() {
   const { showToast } = useStateContext();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const [survey, setSurvey] = useState({
     title: "",
@@ -52,8 +52,8 @@ export default function SurveyView() {
     }
     delete payload.image_url;
     let res = null;
-    if (id) {
-      res = axiosClient.put(`/survey/${id}`, payload);
+    if (slug) {
+      res = axiosClient.put(`/survey/${slug}`, payload);
     } else {
       res = axiosClient.post("/survey", payload);
     }
@@ -61,7 +61,7 @@ export default function SurveyView() {
     res
       .then((res) => {
         navigate("/surveys");
-        if (id) {
+        if (slug) {
           showToast("The survey was updated");
         } else {
           showToast("The survey was created");
@@ -97,9 +97,9 @@ export default function SurveyView() {
   }
 
   useEffect(() => {
-    if (id) {
+    if (slug) {
       setLoading(true);
-      axiosClient.get(`/survey/${id}`).then(({ data }) => {
+      axiosClient.get(`/survey/${slug}`).then(({ data }) => {
         setSurvey(data.data);
         setLoading(false);
       });
@@ -109,7 +109,7 @@ export default function SurveyView() {
 
   return (
     <PageComponent
-      title={!id ? "Create new Survey" : "Update Survey"}
+      title={!slug ? "Create new Survey" : "Update Survey"}
       buttons={
         <div className="flex gap-2">
           <TButton color="green" href={`/survey/public/${survey.slug}`}>

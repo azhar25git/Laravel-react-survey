@@ -82,12 +82,12 @@ export default function Dashboard() {
                   <div>{data.latestSurvey.answers}</div>
                 </div>
                 <div className="flex justify-between">
-                  <TButton to={`/surveys/${data.latestSurvey.id}`} link>
+                  <TButton to={`/surveys/${data.latestSurvey.slug}`} link>
                     <PencilIcon className="w-5 h-5 mr-2" />
                     Edit Survey
                   </TButton>
 
-                  <TButton link>
+                  <TButton to={`/survey-answers/${data.latestSurvey.slug}`} link>
                     <EyeIcon className="w-5 h-5 mr-2" />
                     View Answers
                   </TButton>

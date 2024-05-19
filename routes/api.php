@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SurveyAnswerController;
 use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('survey/{survey:slug}', [SurveyController::class, 'destroy'])->name('survey.destroy');
 
     Route::get('/dashboard', [DashboardController::class, 'index']);
+
+    Route::get('/survey/{survey:slug}/answer', [SurveyAnswerController::class, 'index']);
 });
 
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/survey/get-by-slug/{survey:slug}', [SurveyController::class, 'getBySlug']);
-Route::post('/survey/{survey:slug}/answer', [SurveyController::class, 'storeAnswer']);
+
+Route::post('/survey/{survey:slug}/answer', [SurveyAnswerController::class, 'store']);
